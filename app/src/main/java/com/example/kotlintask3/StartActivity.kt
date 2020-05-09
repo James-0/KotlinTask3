@@ -17,18 +17,14 @@ import kotlinx.android.synthetic.main.home.*
 
 class StartActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var toast: Toast
-    private val prefName = "Database"
-    private val MODE = Context.MODE_PRIVATE
-    private lateinit var preferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
         signupBtn.setOnClickListener(this)
         loginBtn.setOnClickListener(this)
-        preferences = application.getSharedPreferences(prefName, MODE)
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    /*@RequiresApi(Build.VERSION_CODES.KITKAT)*/
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.loginBtn ->  {
@@ -37,7 +33,6 @@ class StartActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.signupBtn -> {
                 PreferencesManager.clear()
-                Toast.makeText(applicationContext, "cleared", Toast.LENGTH_LONG).show()
                 intent  = Intent(applicationContext, SignupActivity::class.java)
                 startActivity(intent)
             }

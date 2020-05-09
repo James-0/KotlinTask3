@@ -36,12 +36,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         var user: ArrayList<User> = PreferencesManager.getGson("key")
         when(v?.id) {
             R.id.button5 -> {
-                var eMail = email?.text.toString()
+                var firstN = email?.text.toString()
                 var passs = password?.text.toString()
 
-                if (eMail.trim().isNotEmpty() && passs.trim().isNotEmpty()) {
+                if (firstN.trim().isNotEmpty() && passs.trim().isNotEmpty()) {
 
-                    if (user.joinToString { it.email.toString() } == eMail && user.joinToString { it.password.toString() } == passs) {
+                    if (user.joinToString { it.email.toString() } == firstN && user.joinToString { it.password.toString() } == passs) {
                         Toast.makeText(applicationContext, "Welcome ${user.joinToString { it.fName.toString() }}", Toast.LENGTH_SHORT).show()
                         progress()
                         intent  = Intent(applicationContext, MainActivity::class.java)
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         startActivity(intent)
                         progressBar?.visibility = View.GONE
                     } else {
-                        Toast.makeText(applicationContext, "Not Found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "incorrect email/password combination. \n try again", Toast.LENGTH_SHORT).show()
                         email.setText("")
                         password.setText("")
                     }

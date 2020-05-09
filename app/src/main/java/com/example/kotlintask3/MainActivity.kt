@@ -6,19 +6,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private val logos = ArrayList<Icon>()
-
-
+    private var user = ArrayList<User>()
+//    private val intent = getIntent()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         addItem()
         val gridView = findViewById<GridView>(R.id.gridView)
-
+        var intent = intent
+        var user: ArrayList<User>?  = intent.getParcelableArrayListExtra<User>("user")
         gridView.adapter = ImageAdapter(this, logos)
-
+        val fullName = user?.joinToString { "${it.fName } ${ it.lName }" }
+        nameFull.text = fullName
+        toolBar.title = user?.joinToString { it.uName.toString() }
+        eMail.text = user?.joinToString { it.email.toString() }
+        description.text = user?.joinToString { it.quote.toString() }
         gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
         Toast.makeText(this, " Clicked Position: " + (logos[position].title),
                 Toast.LENGTH_SHORT).show()
